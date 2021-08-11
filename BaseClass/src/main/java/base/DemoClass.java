@@ -16,14 +16,16 @@ public class DemoClass {
 
         //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 
-        driver.manage().timeouts().implicitlyWait(9,TimeUnit.SECONDS);
+        //dynamic waits
+        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
         driver.get("https://www.google.com/");
         driver.manage().window().maximize();
 
-        //driver.findElement(By.cssSelector(".gLFyf.gsfi")).sendKeys("Chetan", Keys.ENTER);
+        driver.findElement(By.cssSelector(".gLFyf.gsfi")).sendKeys("Chetan",Keys.ENTER);
 
-        driver.findElement(By.cssSelector(".gLFyf.gsfi")).click();
+        //driver.findElement(By.cssSelector(".gLFyf.gsfi")).click();
         Thread.sleep(3000);
 
         driver.quit();
