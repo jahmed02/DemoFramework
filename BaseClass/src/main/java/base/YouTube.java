@@ -1,13 +1,14 @@
 package base;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.testng.Assert;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.beans.PropertyChangeListener;
 import java.nio.file.WatchEvent;
 import java.sql.Driver;
 import java.sql.Time;
@@ -18,7 +19,8 @@ import java.util.concurrent.TimeUnit;
 public class YouTube {
     public static WebDriver driver = null;
 
-    public static void click(String locator){
+    public static void clickOnLocators(String locator){
+
         driver.findElement(By.xpath(locator)).click();
     }
 
@@ -27,56 +29,45 @@ public class YouTube {
         System.setProperty("webdriver.chrome.driver","C:\\Users\\jisan\\IdeaProjects\\DemoProject\\BaseClass\\drives\\chromedriver.exe");
           driver = new ChromeDriver();
 
-//        System.setProperty("webdriver.gecko.driver","C:\\Users\\jisan\\IdeaProjects\\DemoProject\\BaseClass\\drives\\geckodriver.exe");
-//        WebDriver driver = new FirefoxDriver();
-
         //dynamic waits
-        driver.manage().timeouts().pageLoadTimeout(10, TimeUnit.SECONDS);
+        driver.manage().timeouts().pageLoadTimeout(5, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 
-        driver.get("https://www.youtube.com/");
+        driver.get("https://www.youtube.com/");   // getting url
         driver.manage().window().maximize();
 
-//        // using firefox
-//        driver.findElement(By.xpath("//div[@slot='search-input]")).click();
-
-        driver.findElement(By.xpath("//input[@name='search_query']")).click();
-        driver.findElement(By.xpath("//input[@name='search_query']")).sendKeys("music", Keys.ENTER);
+        clickOnLocators("//input[@name='search_query']");     // search bar
+        driver.findElement(By.xpath("//input[@name='search_query']")).sendKeys("Music", Keys.ENTER);    // sendkeys into search bar
 
         List<WebElement> listOfElements = driver.findElements(By.cssSelector("ytd-video-renderer.style-scope.ytd-item-section-renderer"));
-        listOfElements.get(2).click();
+        listOfElements.get(2).click();    // most important - getting the 3rd locator from array of container
 
-        Thread.sleep(15000);
+
+        clickOnLocators("//button[@title='Theater mode (t)']");    // theatre button
+        Thread.sleep(2000);
+        clickOnLocators("//button[@title='Default view (t)']");     //  going back to default view
+        Thread.sleep(2000);
+       // clickOnLocators("//button[@title='Full screen (f)']");   //full screen button
+
+//        clickOnLocators("//tp-yt-paper-button[@id='more']//yt-formatted-string[contains(text(),'Show more')]");   // show more button
+//        Thread.sleep(2000);
+//
+//        clickOnLocators("//tp-yt-paper-button[@id='less']//yt-formatted-string[contains(text(),'Show less')]");   // show less button
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;     // javascript for scroll action
+        js.executeScript("window.scrollBy(0,1000)");   // scrolling down
+
+        Thread.sleep(3000);
         driver.quit();
 
 
 
+        //complex xpath
+        //driver.findElement(By.xpath("//tp-yt-paper-button[@id='more']//yt-formatted-string[contains(text(),'Show more')]")).click();
+        //driver.findElement(By.xpath("//tp-yt-paper-button[@id='less']//yt-formatted-string[contains(text(),'Show less')]")).click();
 
-
-
-// complicated locators for search bar
+        // complicated locators for search bar
 //        driver.findElement(By.xpath("//div[@id='search-input' and @class='ytd-searchbox-spt']")).click();
 //        driver.findElement(By.xpath("//div[@id='search-input' and @class='ytd-searchbox-spt']//input[@id='search']")).sendKeys("Music",Keys.ENTER);
-
-
-//        driver.findElement(By.xpath("//a[@title='TOP 40 Songs of 2020 2021 (Best Hit Music Playlist) on Spotify']")).click();
-//
-//        driver.findElement(By.xpath("//button[@aria-label='Theater mode (t)']")).click();
-//        Thread.sleep(2000);
-//        driver.findElement(By.xpath("//button[@aria-label='Theater mode (t)']")).click();
-//        Thread.sleep(2000);
-//        driver.findElement(By.xpath("//button[@title='Full screen (f)']")).click();
-//        Thread.sleep(2000);
-
-
-//        click("//button[@aria-label='Theater mode (t)']");
-//        Thread.sleep(2000);
-//        click("//button[@aria-label='Theater mode (t)']");
-//        Thread.sleep(2000);
-//        click("//button[@title='Full screen (f)']");
-//        Thread.sleep(2000);
-
-
-
     }
 }
