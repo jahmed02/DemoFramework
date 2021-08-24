@@ -39,31 +39,45 @@ public class Ebay {
         //getting list into a ArrayList
         // span[class='s-item__reviews-count'] - only rating num
         //div[class='s-item__reviews']  - locator with star and rating
+        //  //*[@id="srp-river-results"]/ul/li[1]/div/div[2]/div[3]/a
 
-        List<WebElement> allList = driver.findElements(By.cssSelector("//*[@id=\"srp-river-results\"]/ul/li[1]/div/div[2]/div[3]/a"));
-        List<String> allText = new ArrayList<String>();
-         for(int i=0; i<allList.size(); i++){
-
-             // getting texts for each element into an array
-             allText.add(allList.get(i).getText());
-
-             //printing texts
-             System.out.println(allText.get(i));
-         }
+//        List<WebElement> allList = driver.findElements(By.cssSelector("span[class='s-item__reviews-count']"));
+//        List<String> allText = new ArrayList<String>();
+//         for(int i=0; i<allList.size(); i++){
+//
+//             // getting texts for each element into an array
+//             allText.add(allList.get(i).getText());
+//
+//             //printing texts
+//             System.out.println(allText.get(i));
+//         }
         //till this the code is fine, prints all the review
 
+        List<WebElement> allList = driver.findElements(By.cssSelector("span[class='s-item__reviews-count']"));
+
+        //Mozart sorting loop
+        List number = new ArrayList();
+        String a;
+        for (int i = 0; i < allList.size(); i++) {
+            //String a = list.get(0).getText();
+            a = allList.get(i).getText();
+            a = a.replaceAll("\\s.*", "");
+            Integer.parseInt(a);
+            //Integer a = Collections.max();
+            for (int j = 0; j < a.length(); j++) {
+                number.add(a);
+            }
+        }
+        for (int i = 0; i < number.size(); i++) {
+            System.out.println(number.get(i));
+        }
 
 
-
-
-
-        //List<WebElement> allList = driver.findElements(By.cssSelector("span[class='s-item__reviews-count']"));
-
-//        // anayeth loop code
+        // anayeth loop code
 //        String a;
 //        for(int i = 0; i< allText.size(); i++) {
 //            //String a = allList.get(0).getText();
-//             a = allText.get(i).getText();
+//             a = allText.get(i);
 //            a = a.replaceAll("\\s.*", "");
 //            Integer.parseInt(a);
 //            //Integer a = Collections.max();
@@ -71,25 +85,8 @@ public class Ebay {
 //        }
 
 
-        //Mozart sorting loop
-//        List number = new ArrayList();
-//        String a;
-//        for (int i = 0; i < allList.size(); i++) {
-//            //String a = list.get(0).getText();
-//            a = allList.get(i).getText();
-//            a = a.replaceAll("\\s.*", "");
-//            Integer.parseInt(a);
-//            //Integer a = Collections.max();
-//            for (int j = 0; j < a.length(); j++) {
-//                number.add(a);
-//            }
-//        }
-//        for (int i = 0; i < number.size(); i++) {
-//            System.out.println(number.get(i));
-//        }
-
         // trying to sort all the reviews
-        Collections.sort(allText);
+        //Collections.sort(allText);
         //Collections.sort(a, Collections.reverseOrder());
 
 
@@ -126,8 +123,8 @@ public class Ebay {
 //            System.out.println(element.getText());
 //        }
 
-        JavascriptExecutor js = (JavascriptExecutor) driver;     // javascript for scroll action
-        js.executeScript("window.scrollBy(0,750)");   // scrolling down
+//        JavascriptExecutor js = (JavascriptExecutor) driver;     // javascript for scroll action
+//        js.executeScript("window.scrollBy(0,750)");   // scrolling down
 
         Thread.sleep(3000);
         driver.quit();

@@ -27,8 +27,12 @@ public class EBAY_2 {
 
         driver.findElement(By.cssSelector("input#gh-ac")).sendKeys("iphone 8", Keys.ENTER);
 
+
+        // important collection code block
+        // to store list of webelements into an array and printing text and attributes
+
         // array for href element
-       List<WebElement> href = driver.findElements(By.xpath("//*[contains(@href,'UserReviews')]"));
+        List<WebElement> href = driver.findElements(By.xpath("//*[contains(@href,'UserReviews')]"));
         List<String> b = new ArrayList<>();
         for(int i=0; i<href.size(); i++){
 
@@ -38,9 +42,39 @@ public class EBAY_2 {
             //printing texts
             System.out.println(b.get(i));
         }
+
+
+         // product rating numbers locator
+        //  span[class='s-item__reviews-count']
+        //   //*[contains(text(),'product rating')]
+        List<WebElement> allList = driver.findElements(By.xpath("//span[contains(text(),'product ratings')]"));
+
+        List number = new ArrayList();
+        String a;
+        for (int i = 0; i < allList.size(); i++) {
+            //String a = list.get(0).getText();
+            a = allList.get(i).getText();
+            a = a.replaceAll("\\s.*", "");
+            Integer.parseInt(a);
+            //Integer a = Collections.max();
+            for (int j = 0; j < a.length(); j++) {
+                number.add(a);
+            }
+        }
+        for (int i = 0; i < number.size(); i++) {
+            System.out.println(number.get(i));
+        }
         // till this point we're good
+        // printing href links and product rating numbers
 
 
+
+
+        //Traversing through the list and printing its text along with link address
+//        for(WebElement link:href){
+//            //System.out.println(link.getText() + " - " + link.getAttribute("href"));
+//            System.out.println(link.getAttribute("href"));
+//        }
 
         //String c = driver.findElements(By.xpath("//*[contains(@href,'UserReviews')]")).getAttribute("href");
 
@@ -49,25 +83,7 @@ public class EBAY_2 {
 //            System.out.println(itr.next());
 
 
-//        List<WebElement> allLinks = driver.findElements(By.tagName("a"));
-//
-//        //Traversing through the list and printing its text along with link address
-//        for(WebElement link:allLinks){
-//            System.out.println(link.getText() + " - " + link.getAttribute("href"));
-//        }
-
-
-
       // System.out.println(href);
-
-
-//       List<String> b = new ArrayList<>();
-//       for(String c: b){
-//           System.out.println(c.);
-//       }
-
-//        List<String> b = new ArrayList<String>();
-
 
         // ptinting href
         // //*[contains(text(),'product rating')]
@@ -76,29 +92,6 @@ public class EBAY_2 {
 
 //            String j = driver.findElement(By.xpath("//*[contains(@href,'UserReviews')]")).getAttribute("href");
 //            System.out.println(j);
-
-//        String a;
-//        String c;
-//
-//        for(int i = 0; i< href.size(); i++) {
-//            //String a = allList.get(0).getText();
-//             a = href.get(i).getText();
-//             c= b.get(i);
-//            a = a.replaceAll("\\s.*", "");
-//            c = b.remove()
-//            Integer.parseInt(a);
-//            //Integer a = Collections.max();
-//            System.out.println(a);
-//        }
-
-
-
-
-//        HashMap<String, List<WebElement>>  list = new HashMap<String, List<WebElement>>();
-//        list.put("a",new ArrayList<WebElement>());
-//        for(int i=0; i< list.size();i++) {
-//            list.get("a").add()
-//        }
 
 
         Thread.sleep(2000);
